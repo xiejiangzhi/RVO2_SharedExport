@@ -34,6 +34,7 @@
 # <https://gamma.cs.unc.edu/RVO2/>
 #
 
+/build/
 /_build/
 /.idea/
 /.user.bazelrc
