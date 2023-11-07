@@ -18,6 +18,11 @@ void SimSetTimeStep(void* sim, float interval) {
  ((RVO::RVOSimulator*)sim)->setTimeStep(interval);
 }
 
+void SimDoStep(void* sim) {
+  assert(sim);
+  ((RVO::RVOSimulator*)sim)->doStep();
+}
+
 void SimSetAgentDefaults(
   void* sim,
   float neighborDist, size_t maxNeighbors, float timeHorizon, float timeHorizonObst,
@@ -59,11 +64,6 @@ void SimAddObstacle(void* sim, float* vertices, int total) {
 void SimProcessObstacles(void* sim) {
   assert(sim);
   ((RVO::RVOSimulator*)sim)->processObstacles();
-}
-
-void SimDoStep(void* sim) {
-  assert(sim);
-  ((RVO::RVOSimulator*)sim)->doStep();
 }
 
 void SimSetAgentPosition(void* sim, size_t agent_no, float x, float y) {
@@ -113,6 +113,16 @@ size_t SimGetNumAgents(void* sim) {
   return ((RVO::RVOSimulator*)sim)->getNumAgents();
 }
 
+float SimGetTimeStep(void* sim) {
+  assert(sim);
+  return ((RVO::RVOSimulator*)sim)->getTimeStep();
+}
+
+float SimGetTime(void* sim) {
+  assert(sim);
+  return ((RVO::RVOSimulator*)sim)->getGlobalTime();
+}
+
 void SimGetAgentPosition(void* sim, size_t agent_no, float pos[2]) {
   assert(sim);
   RVO::Vector2 v2 = ((RVO::RVOSimulator*)sim)->getAgentPosition(agent_no);
@@ -138,4 +148,3 @@ void SimGetAgentPosAndVel(void* sim, size_t agent_no, float pos[2], float vel[2]
   v2 = ((RVO::RVOSimulator*)sim)->getAgentVelocity(agent_no);
   vel[0] = v2.x(), vel[1] = v2.y();
 }
-
